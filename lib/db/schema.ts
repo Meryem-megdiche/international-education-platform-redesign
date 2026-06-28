@@ -67,7 +67,25 @@ export const contactMessages = pgTable('contact_messages', {
     .defaultNow(),
 })
 
+export const appointments = pgTable('appointments', {
+  id: serial('id').primaryKey(),
+  reference: text('reference').notNull().unique(),
+  name: text('name').notNull(),
+  email: text('email').notNull(),
+  phone: text('phone').notNull().default(''),
+  destination: text('destination').notNull().default(''),
+  service: text('service').notNull().default(''),
+  appointmentDate: text('appointment_date').notNull(),
+  appointmentTime: text('appointment_time').notNull(),
+  notes: text('notes').notNull().default(''),
+  status: text('status').notNull().default('confirmed'),
+  createdAt: timestamp('created_at', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+})
+
 export type University = typeof universities.$inferSelect
 export type GalleryItem = typeof galleryItems.$inferSelect
 export type BlogPost = typeof blogPosts.$inferSelect
 export type ContactMessage = typeof contactMessages.$inferSelect
+export type Appointment = typeof appointments.$inferSelect

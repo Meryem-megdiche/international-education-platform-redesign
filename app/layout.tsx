@@ -5,6 +5,7 @@ import { Suspense } from 'react'
 import { SiteHeader } from '@/components/layout/site-header'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { WhatsAppButton } from '@/components/layout/whatsapp-button'
+import { AIAssistant } from '@/components/assistant/ai-assistant'
 import './globals.css'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
@@ -89,6 +90,7 @@ export default function RootLayout({
         {children}
         <SiteFooter />
         <WhatsAppButton />
+        <AIAssistant />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

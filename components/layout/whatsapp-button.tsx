@@ -41,7 +41,7 @@ export function WhatsAppButton() {
             >
               <X className="size-3" />
             </button>
-            Need help? Chat with {siteConfig.shortName} now
+            Chat with us on WhatsApp
           </motion.div>
         )}
       </AnimatePresence>
