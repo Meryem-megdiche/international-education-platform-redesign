@@ -7,6 +7,7 @@ import { DefaultChatTransport, type UIMessage } from 'ai'
 import { motion, AnimatePresence } from 'motion/react'
 import { Sparkles, X, Send, Bot, CalendarCheck } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { whatsappUrl } from '@/lib/site'
 
 const SUGGESTED = [
   'How do I apply to study in Italy?',
@@ -42,10 +43,12 @@ function TypingDots() {
 export function AIAssistant() {
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState('')
+  const [errored, setErrored] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
 
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({ api: '/api/chat' }),
+    onError: () => setErrored(true),
   })
 
   const isBusy = status === 'streaming' || status === 'submitted'
@@ -60,6 +63,7 @@ export function AIAssistant() {
   function submit(text: string) {
     const trimmed = text.trim()
     if (!trimmed || isBusy) return
+    setErrored(false)
     sendMessage({ text: trimmed })
     setInput('')
   }
@@ -205,6 +209,37 @@ export function AIAssistant() {
                   </span>
                   <div className="rounded-2xl rounded-tl-sm bg-card px-2 py-2 shadow-sm">
                     <TypingDots />
+                  </div>
+                </div>
+              )}
+
+              {errored && (
+                <div className="flex items-start gap-2.5">
+                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Bot className="size-4" />
+                  </span>
+                  <div className="space-y-2 rounded-2xl rounded-tl-sm border border-border bg-card px-4 py-3 text-sm text-foreground shadow-sm">
+                    <p>
+                      I&apos;m having trouble connecting right now. Our team is
+                      ready to help you directly:
+                    </p>
+                    <div className="flex flex-col gap-2">
+                      <a
+                        href={whatsappUrl()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-lg bg-primary px-3 py-1.5 text-center text-xs font-medium text-primary-foreground"
+                      >
+                        Chat on WhatsApp
+                      </a>
+                      <Link
+                        href="/book"
+                        onClick={() => setOpen(false)}
+                        className="rounded-lg border border-border px-3 py-1.5 text-center text-xs font-medium text-foreground"
+                      >
+                        Book a free consultation
+                      </Link>
+                    </div>
                   </div>
                 </div>
               )}
