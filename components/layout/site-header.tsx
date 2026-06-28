@@ -120,7 +120,7 @@ export function SiteHeader() {
                 aria-label="Mobile primary"
               >
                 {mainNav.map((item) => (
-                  <SheetClose asChild key={item.href}>
+                  <SheetClose asChild key={item.href} nativeButton={false}>
                     <Link
                       href={item.href}
                       className={cn(
