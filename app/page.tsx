@@ -1,23 +1,52 @@
-export default function Page() {
+import { Hero } from '@/components/home/hero'
+import { Stats } from '@/components/home/stats'
+import { Destinations } from '@/components/home/destinations'
+import { ServicesPreview } from '@/components/home/services-preview'
+import { WhyUs } from '@/components/home/why-us'
+import { ProcessTimeline } from '@/components/home/process-timeline'
+import { Testimonials } from '@/components/home/testimonials'
+import { FaqSection } from '@/components/home/faq-section'
+import { CtaSection } from '@/components/home/cta-section'
+import { siteConfig } from '@/lib/site'
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'EducationalOrganization',
+  name: siteConfig.name,
+  description: siteConfig.description,
+  url: siteConfig.url,
+  email: siteConfig.contact.email,
+  telephone: siteConfig.contact.phone,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: siteConfig.contact.address,
+    addressLocality: 'Casablanca',
+    addressCountry: 'MA',
+  },
+  areaServed: ['North Africa', 'Middle East'],
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    reviewCount: '1280',
+  },
+}
+
+export default function HomePage() {
   return (
-    <main className="relative flex min-h-screen items-center justify-center bg-[color:light-dark(#fff,#000)] text-[color:light-dark(#000,#fff)]">
-      <svg
-        aria-hidden="true"
-        className="size-20"
-        fill="none"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-        stroke="currentColor"
-        strokeWidth="0.5"
-      >
-        <path
-          d="M14.2 14.2H17V6.9375C17 4.76288 15.2371 3 13.0625 3H5.8V5.8M14.2 14.2V7.79063L7.79062 14.2H14.2ZM14.2 14.2V17H6.9375C4.76288 17 3 15.2371 3 13.0625V5.8H5.8M5.8 5.8V12.2313L12.2313 5.8H5.8Z"
-          strokeLinejoin="round"
-        />
-      </svg>
-      <p className="absolute left-1/2 top-[calc(50%+56px)] -translate-x-1/2 whitespace-nowrap text-sm font-medium text-muted-foreground">
-        Your v0 generation will show here.
-      </p>
+    <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <Hero />
+      <Stats />
+      <Destinations />
+      <ServicesPreview />
+      <WhyUs />
+      <ProcessTimeline />
+      <Testimonials />
+      <FaqSection />
+      <CtaSection />
     </main>
   )
 }
