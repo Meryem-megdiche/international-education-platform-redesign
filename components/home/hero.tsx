@@ -48,8 +48,10 @@ export function Hero() {
             className="mt-6 text-balance text-4xl font-bold leading-[1.05] text-foreground sm:text-5xl lg:text-6xl"
           >
             Your Gateway to{' '}
-            <span className="text-gradient-gold">World-Class</span> Education
-            Abroad
+            <span className="bg-[linear-gradient(120deg,oklch(0.72_0.13_75),oklch(0.6_0.13_65))] bg-clip-text text-transparent">
+              World-Class
+            </span>{' '}
+            Education Abroad
           </motion.h1>
 
           <motion.p
