@@ -1,11 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono, Playfair_Display } from 'next/font/google'
-import { Suspense } from 'react'
-import { SiteHeader } from '@/components/layout/site-header'
-import { SiteFooter } from '@/components/layout/site-footer'
-import { WhatsAppButton } from '@/components/layout/whatsapp-button'
-import { AIAssistant } from '@/components/assistant/ai-assistant'
+import { SiteChrome } from '@/components/layout/site-chrome'
 import './globals.css'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
@@ -84,13 +80,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} bg-background`}
     >
       <body className="font-sans antialiased">
-        <Suspense fallback={null}>
-          <SiteHeader />
-        </Suspense>
-        {children}
-        <SiteFooter />
-        <WhatsAppButton />
-        <AIAssistant />
+        <SiteChrome>{children}</SiteChrome>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
